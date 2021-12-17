@@ -15,11 +15,10 @@ int main(int argc, char *argv[]) {
   char comando[BUFSIZ];
   char abortar[4] = {'q', 'u', 'i', 't'};
   char **vector;
-  int i, coincidencias;
+  int i, coincidencias = 0;
   pid_t pid;
 
   while(1) {
-          coincidencias = 0;
           printf("> ");
           leer_de_teclado(BUFSIZ,comando);
           
@@ -38,9 +37,11 @@ int main(int argc, char *argv[]) {
           } else if (pid == 0) {
                 vector = de_cadena_a_vector(comando);
                 execvp(vector[0],vector);
+                return 0;
           } else {
+                  coincidencias=0;
                   wait(NULL);
-                  return 0;
+                  
           }
   }
 
